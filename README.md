@@ -1,5 +1,4 @@
-# msk_dustbin
-[ESX] Dustbin Storage with ox_lib
+![MSK_-_Dustbin](https://github.com/MSK-Scripts/msk_dustbin/assets/49867381/452dbf72-2054-495b-b5c4-abf47c7de3b0)
 
 ## Description
 * Different Dustbins to store and search items
