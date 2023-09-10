@@ -1,6 +1,7 @@
 ![MSK_-_Dustbin](https://github.com/MSK-Scripts/msk_dustbin/assets/49867381/452dbf72-2054-495b-b5c4-abf47c7de3b0)
 
 ## Description
+* Only solid dustbins are supported like prop_dumpster_01a *(see config)*
 * Different Dustbins to store and search items
 * Items are saved in database
 * Support ox_lib (Context Menu)
