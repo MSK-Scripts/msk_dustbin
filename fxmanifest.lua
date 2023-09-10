@@ -3,7 +3,7 @@ games { 'gta5' }
 
 author 'Musiker15 - MSK Scripts'
 name 'msk_dustbin'
-description 'Dustbin Storage'
+description 'Dustbin Storage with ox_lib'
 version '1.0'
 
 lua54 'yes'
