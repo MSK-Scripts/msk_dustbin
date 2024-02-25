@@ -121,15 +121,15 @@ AddEventHandler('msk_dustbin:getItem', function(binId, data, count, weaponIndex)
     end
 end)
 
-ESX.Register('msk_dustbin:getInventory', function(source)
+ESX.RegisterServerCallback('dinerov_dustbin:getInventory', function(source, cb)
     local src = source
     local xPlayer = ESX.GetPlayerFromId(src)
 
-   return xPlayer.inventory, xPlayer.loadout
+   cb(xPlayer.inventory, xPlayer.loadout)
 end)
 
-ESX.Register('msk_dustbin:getDustbin', function(source, binId, items)
-   return getDustbinStorage(binId, items)
+ESX.RegisterServerCallback('dinerov_dustbin:getDustbin', function(source, cb, binId, items)
+   cb(getDustbinStorage(binId, items))
 end)
 
 getDustbinStorage = function(binId, items)
