@@ -4,8 +4,9 @@
 * Only solid dustbins are supported like prop_dumpster_01a *(see config)*
 * Different Dustbins to store and search items
 * Items are saved in database
-* Support ox_lib (Context Menu)
-* Support Chezza Inventory V4
+* Support for ox_lib (Context Menu)
+* Support for Chezza Inventory V4
+* Support for ox_inventory
 
 ## Requirements
 * [ESX Legacy](https://github.com/esx-framework/esx_core)
