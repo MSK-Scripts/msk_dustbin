@@ -10,12 +10,23 @@ end)
 AddEventHandler('esx:onPlayerDeath', function() isDead = true end)
 AddEventHandler('esx:onPlayerSpawn', function() isDead = false end)
 
+getIsDead = function()
+    local isPlayerDead = isDead
+
+    if GetResourceState("visn_are") ~= "missing" then
+        local healthBuffer = exports.visn_are:GetHealthBuffer()
+        isPlayerDead = healthBuffer.unconscious
+    end
+
+    return isPlayerDead
+end
+
 CreateThread(function()
 	while true do
 		local sleep = 500
         currentDustbin = {}
 
-        if NearDustbin() and isCurrent() and not isDead then
+        if NearDustbin() and isCurrent() and not getIsDead() then
             sleep = 0
             ESX.ShowHelpNotification(Translation[Config.Locale]['open'])
             
@@ -31,6 +42,21 @@ CreateThread(function()
                     })
                 elseif Config.Inventory == 'ox_lib' then
                     registerMenus()
+                elseif Config.Inventory == 'ox_inventory' then
+                    local stashId = currentDustbin.model .. ' - ' .. coordsToJson(currentDustbin.coords)
+
+                    if exports.ox_inventory:openInventory('stash', stashId) == false then
+                        ESX.TriggerServerCallback('msk_dustbin:registerStash', function(registered)
+                            if registered then
+                                exports.ox_inventory:openInventory('stash', stashId)
+                            end
+                        end, {
+                            id = stashId,
+                            label = Translation[Config.Locale]['dustbin_label'],
+                            slots = 50,
+                            weight = 100000
+                        })
+                    end
                 end
             end
         end
@@ -231,7 +257,7 @@ NearDustbin = function()
 end
 
 reopenMenu = function()
-    if isDead then return end
+    if getIsDead() then return end
     Wait(500)
     registerMenus()
 end

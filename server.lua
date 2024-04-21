@@ -34,6 +34,11 @@ AddEventHandler('onResourceStop', function(resource)
     end
 end)
 
+AddEventHandler('txAdmin:events:serverShuttingDown', function(eventData)
+    if not Config.RemoveItemsOnRestart then return end
+    MySQL.query('DELETE FROM msk_dustbin')
+end)
+
 RegisterServerEvent('msk_dustbin:throwAway')
 AddEventHandler('msk_dustbin:throwAway', function(binId, data, count)
     local src = source
@@ -121,14 +126,19 @@ AddEventHandler('msk_dustbin:getItem', function(binId, data, count, weaponIndex)
     end
 end)
 
-ESX.RegisterServerCallback('dinerov_dustbin:getInventory', function(source, cb)
+ESX.RegisterServerCallback('msk_dustbin:registerStash', function(source, cb, stash)
+    exports.ox_inventory:RegisterStash(stash.id, stash.label, stash.slots, stash.weight)
+    cb(true)
+end)
+
+ESX.RegisterServerCallback('msk_dustbin:getInventory', function(source, cb)
     local src = source
     local xPlayer = ESX.GetPlayerFromId(src)
 
    cb(xPlayer.inventory, xPlayer.loadout)
 end)
 
-ESX.RegisterServerCallback('dinerov_dustbin:getDustbin', function(source, cb, binId, items)
+ESX.RegisterServerCallback('msk_dustbin:getDustbin', function(source, cb, binId, items)
    cb(getDustbinStorage(binId, items))
 end)
 
